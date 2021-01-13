@@ -12,6 +12,46 @@
 
 ### [CSS](#第二篇-css)
 
+- [全面系统讲解-CSS-从容面对日常使用-顺利搞定面试问答](#全面系统讲解-css-从容面对日常使用-顺利搞定面试问答)
+  - [一-HTML-基础](#一-html-基础)
+    - [1-1-head-区元素](#1-1-head-区元素)
+    - [1-2-body-区元素](#1-2-body-区元素)
+    - [1-3-HTML5-新增](#1-3-html5-新增)
+    - [1-4-元素分类](#1-4-元素分类)
+    - [1-5-元素嵌套关系](#1-5-元素嵌套关系)
+    - [1-6-元素默认样式](#1-6-元素默认样式)
+  - [二-CSS-基础](#二-css-基础)
+    - [2-1-选择器分类](#2-1-选择器分类)
+    - [2-2-选择器权重](#2-2-选择器权重)
+    - [2-3-非布局样式](#2-3-非布局样式)
+      - [2-3-1-字体](#2-3-1-字体)
+      - [2-3-2-行高](#2-3-2-行高)
+      - [2-3-3-背景](#2-3-3-背景)
+      - [2-3-4-边框](#2-3-4-边框)
+      - [2-3-5-滚动](#2-3-5-滚动)
+      - [2-3-6-文本折行](#2-3-6-文本折行)
+      - [2-3-7-装饰性属性](#2-3-7-装饰性属性)
+      - [2-3-8-Hack](#2-3-8-hack)
+      - [2-3-9-思维扩展-使用纯-CSS-实现可折叠目录树效果](#2-3-9-思维扩展-使用纯-css-实现可折叠目录树效果)
+  - [三-CSS-布局](#三-css-布局)
+    - [3-1-table-布局](#3-1-table-布局)
+      - [3-1-1-传统-table-布局](#3-1-1-传统-table-布局)
+      - [3-1-2-使用-display-设置元素以-table-样式显示](#3-1-2-使用-display-设置元素以-table-样式显示)
+      - [3-1-3-一些布局属性补充](#3-1-3-一些布局属性补充)
+    - [3-2-flexbox-布局](#3-2-flexbox-布局)
+    - [3-3-float-布局](#3-3-float-布局)
+    - [3-4-inline-block-布局](#3-4-inline-block-布局)
+    - [3-5-响应式布局](#3-5-响应式布局)
+    - [3-6-CSS-布局常见问题](#3-6-css-布局常见问题)
+      - [3-6-1-怎样实现两栏或三栏布局](#3-6-1-怎样实现两栏或三栏布局)
+      - [3-6-2-absolute-和-fixed-的区别](#3-6-2-absolute-和-fixed-的区别)
+      - [3-6-3-inline-block-的间隙](#3-6-3-inline-block-的间隙)
+      - [3-6-4-清除浮动](#3-6-4-清除浮动)
+      - [3-6-5-如何适配移动端页面](#3-6-5-如何适配移动端页面)
+  - [四-CSS-效果](#四-css-效果)
+    - [4-1-box-shadow](#4-1-box-shadow)
+    - [4-2-text-shadow](#4-2-text-shadow)
+
 ---
 
 ### [JavaScript](#第三篇-javascript)
@@ -54,6 +94,642 @@
 ---
 
 ## 第二篇-CSS
+
+---
+
+### 全面系统讲解-CSS-从容面对日常使用-顺利搞定面试问答
+
+#### 一-HTML-基础
+
+##### 1-1-head-区元素
+
+页面信息的描述和资源，不会直接出现在页面上
+
+- meta
+
+  ```html
+  <meta charset="utf-8" />
+  ```
+
+  ```html
+  <meta
+    name="viewport"
+    content="width=device-width,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"
+  />
+  ```
+
+- title
+- style
+- link
+- script
+- base
+
+  ```html
+  <base href="/" />
+  ```
+
+  指定页面或框架中链接的基础路径
+
+##### 1-2-body-区元素
+
+- div / section / article / aside / header / footer
+- p
+- span / em / strong
+- table[rowspan,colspan] / thead / tbody / tr / td[rowspan,colspan]
+- ul / ol / li / dl / dt / dd
+- a[href,target]
+- form[target,method,enctype] / input[type,value] / label[for] / select>option[value] / textarea / button[type]
+- img[src,alt]
+
+##### 1-3-HTML5-新增
+
+- 新区块标签：
+  - section
+  - article
+  - nav
+  - aside
+- 表单增强：
+  - 日期、时间、搜索
+  - 表单验证
+  - Placeholder, 自动聚焦
+- 语义：
+  - header / footer: 头尾
+  - section / article: 区域
+  - nav: 导航
+  - aside: 边栏、广告、不重要内容
+  - em / strong: 强调
+  - i: icon, 用于图标
+
+##### 1-4-元素分类
+
+- 按默认样式：
+
+  - 块级 block
+  - 行内 inline
+  - inline-block
+
+- 按内容：
+
+  ![content_model](./images/css_content_model/content-model.png)
+
+##### 1-5-元素嵌套关系
+
+- 块级元素可以包含行内元素
+
+- 块级元素不一定能包含块级元素
+
+  例如 p 里面不能再包含 div
+
+- 行内元素一般不能包含块级元素
+
+  例如 a 里面可以再包含 div
+
+  对于 a 元素，在计算元素嵌套关系时可以直接去掉
+
+##### 1-6-元素默认样式
+
+不同浏览器元素默认样式存在差异，常用 reset 方法：
+
+1. CSS Resets
+2. Normalize.css
+
+#### 二-CSS-基础
+
+##### 2-1-选择器分类
+
+- 元素选择器
+- 伪元素选择器
+- 类选择器
+- 属性选择器
+- 伪类选择器
+- ID 选择器
+- 组合选择器
+- 否定选择器
+- 通用选择器
+
+##### 2-2-选择器权重
+
+- ID 选择器 +100
+- 类 / 伪类 选择器 +10
+- 元素 / 伪元素 选择器 +1
+- 其他选择器 +0
+- 计算权重不进位
+- **!important** 权重最高
+- 元素属性上的样式 优先级更高
+- 相同权重，后写的生效
+
+##### 2-3-非布局样式
+
+###### 2-3-1-字体
+
+- 字体族：衬线字体 / 非衬线字体
+
+- 多字体：fallback 机制
+
+- 使用网络字体和自定义字体
+
+- iconfont
+
+  > font-family: （适用平台少的，特殊的字体），（适用平台广的，通用的字体），（字体族），例如：
+
+  ```html
+  font-family: "PingFang SC", "Microsoft Yahei", monospace;
+  ```
+
+  > 平方字体是苹果系统默认使用的，而微软雅黑在部分苹果系统上也有安装，如果先写微软雅黑，导致部分苹果系统将使用微软雅黑而不是苹果系统上效果更好的平方字体，最后写字体族，利用 fallback 机制在前面两种字体都不支持的情况下自动从指定字体族中选用一种
+  >
+  > @font-face 使用自定义字体或者网络字体，例如：
+
+  ```html
+  @font-face{ ​ font-family: (名字自己起); ​ src:(本地文件路径或者网络地址); }
+  ```
+
+  > 网络字体一般都提供 CSS 文件直接远程引入，其中已经使用@font-face 定义好了 font-family，可以直接拿来使用
+
+  ```html
+  <link rel="stylesheet" href="http://www.xxx.com/xxx.css" />
+  ```
+
+###### 2-3-2-行高
+
+- 行高是由 line-box 决定的，而 line-box 是由 inline-box 构成的
+
+  > 例如： 设置 inline-height 不会影响文字布局的高度，文字的高度由字体大小决定，但是会撑起外部容器的高度
+
+  ```html
+  <div>
+    <span>inline-box</span><span>inline-box</span><span>inline-box</span>
+  </div>
+  ```
+
+  > 三个 span 元素分别设置 line-height 为 20、24、30，实际效果上，文字全部是高度相同并且对齐的，因为文字排版默认以 base-line 对齐但是外部 div 元素的高度是 30，也就是被三个 span 中 line-height 最高的那个 span 给撑起来
+
+- 利用 line-height 的特性，当 line-height 值大于字体大小时，多处的高度将会平均分布到 inline-box 的上下，撑起 line-box，因此可以不设置外部容器的高度，而通过指定 line-height 来撑起容器，此时容器内的文字自然是垂直居中的
+  > 如果同一个 line-box 中不同的 inline-box 的文字大小不同，那么表现出来的是文字不是在容器中垂直居中的，因为文字默认对齐方式是按 base-line(基线对齐)，可以通过设置 vertical-align 来改变，比如设置为：vertical-align:middle
+  >
+  > vertical-align 如果设置具体的 px 值，则是将 inline-box 以 base-line 为参照进行偏移
+  >
+  > 当容器中同时有文字和图片时，会发现图片边缘不是和文字对齐的，而是有一条缝隙，这是因为 img 元素默认也是以 base-line 进行对齐，此时只需将 vertical-align 设置成 bottom 就可以消除这条缝隙
+
+###### 2-3-3-背景
+
+- background-size 对于渐变也是适用的
+
+  > 利用渐变和 background-size,background-repeat 可以生成类似网格的效果，例如：
+
+  ```html
+  .demo{ background:linear-gradient(135 deg,transparent 0,transparent
+  49.5%,green 49.5%,green 50.5%,transparent 50.5%,transparent 100%); }
+  ```
+
+  > 这会生成一条斜向上的绿色斜线，然后可以通过 background-size 将这条斜线设置成很小很短的一条，之后使用 background-repeat 设置重复，以同样方法在生成斜向下的线条，叠加起来就成了网格背景。相比使用一张网格背景图片，这种方式能减少 http 请求次数，提高网页性能
+
+- 雪碧图
+
+  雪碧图将多张小图片合并成一张图片，可以有效减少 http 请求优化网页性能，其原理也是利用 background 的 background-position、background-size 属性
+
+- 移动端适配
+
+  利用 background-size 属性将一张大图缩小再作为背景使用，就是移动端高清屏(retina)或者说@2x 图解决方案
+
+- base64 格式图片
+
+  将图片转换成 base64 格式的字符串，可以节省 http 请求，但是会增大文件体积，并且增加解码开销，适用于小尺寸的图标类的场景
+
+###### 2-3-4-边框
+
+- 边框背景图
+
+  可以使用图片作为边框，此时边框样式必须是 solid，例如：
+
+  ```html
+  .demo{ border:30px solid transparent; border-image:url(./border.png) 30 round;
+  }
+  ```
+
+  > border-image 中 30 是设置边框四个角上的图案大小，around(或者 repeat)设置四个角中间是由图案填充，不设置则中间图案会变成拉伸
+
+- 三角形
+
+  边框交界的地方是呈 45 度角的，利用这一点可以使用边框生成三角形，例如：
+
+  ```html
+  .demo{ width:0; height:0; border:30px solid transparent; border-bottom:30px
+  solid #f00; }
+  ```
+
+  > 改变不同方向边框的宽度就可以改变三角形的形状
+
+###### 2-3-5-滚动
+
+- 滚动容器和滚动条(overflow 属性)
+
+  - visible:超出容器的内容会直接显示出来，隐藏滚动条
+  - hidden:超出容器的内容不会显示，隐藏滚动条
+  - scroll:超出容器的内容可以滚动显示，始终显示滚动条
+  - auto:超出容器的内容可以滚动显示，默认隐藏滚动条，只有当内容超出需要滚动显示时才出现滚动条
+
+###### 2-3-6-文本折行
+
+- overflow-wrap(word-wrap)
+
+  通用换行控制，控制是否保留单词，主要适用于文本中含有超长单词的情况
+
+- word-break
+
+  是把单词看做一个单位还是把字母看做一个单位，主要针对多字节文字的情况
+
+  > 针对 CJK(中日韩三国语言)的情况，将单词看做一个单位实际上是以句子为单位，而将字母看做一个单位实际上是以单个汉字为单位
+
+- white-space
+
+  控制在空白处是否换行，因为英文单词是以空格分隔的
+
+  > 将 white-space 设置为 nowrap 就可以实现很长的一段文本不换行
+
+###### 2-3-7-装饰性属性
+
+- font-weight:字重(粗体)
+- font-style:斜体
+- text-decoration:下划线
+- cursor:鼠标样式
+
+###### 2-3-8-Hack
+
+Hack 就是不合法但是生效的写法，主要用于处理浏览器兼容性问题，对特定浏览器做对应的特定处理，具有难维护、难理解、易失效的缺点
+
+> hack 的替代方案主要是使用特性检测，对于 CSS 的 hack 写法可以针对性的加 class
+>
+> hack 属性应该写在标准属性的后面，这样才能利用 hack 写法的特点针对特定浏览器实现特定效果
+
+###### 2-3-9-思维扩展-使用纯-CSS-实现可折叠目录树效果
+
+思路:结合:checked 伪类，相邻兄弟选择器+，后续兄弟选择器~等等
+
+```html
+<head>
+  <style>
+    ul {
+      color: white;
+      background-color: black;
+    }
+    li.level {
+      position: relative;
+    }
+    label {
+      position: absolute;
+      left: 60px;
+      display: inline-block;
+      width: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+    label.open {
+      display: none;
+    }
+    input[type="radio"] {
+      display: none;
+    }
+    input.close:checked + label.open {
+      display: inline-block;
+    }
+    input.close:checked ~ ul.subList {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <ul>
+      <li class="level">
+        Level1-1
+        <label for="level1-1-close">+</label>
+        <input type="radio" id="level1-1-close" class="close" name="level1-1" />
+        <label for="level1-1-open" class="open"> - </label>
+        <input type="radio" id="level1-1-open" name="level1-1" />
+        <ul class="subList">
+          <li class="level">Level2-1</li>
+          <li class="level">Level2-2</li>
+        </ul>
+      </li>
+      <li class="level">Level1-2</li>
+    </ul>
+  </div>
+</body>
+```
+
+#### 三-CSS-布局
+
+CSS 布局从发展历程来看，主要有早期的 table 布局，但是 table 元素早期浏览器并不会对其进行流式加载(现今已不是问题，浏览器都会对 table 进行流式加载，使用 table 布局已经不会有什么问题，主要还是语义不清，因为 table 本身是用于呈现数据的表单元素)，对于内容很长的 table，会造成页面堵塞；之后为了解决 table 布局的问题，开始使用各种技巧性布局(比如 float 加 margin 的经典应用，不论是两栏还是三栏都能很好的实现)，缺点是实现起来很难，写法复杂，因为这些技巧不是为布局而生的；再到如今开始使用 flexbox 和 grid，专为布局而生，实现简单而且效果很好。另外现今移动端大行其道，对于移动端要使用响应式布局。
+
+##### 3-1-table-布局
+
+###### 3-1-1-传统-table-布局
+
+```html
+<head>
+  <style>
+    table {
+      width: 800px;
+      height: 200px;
+      border-collapse: collapse;
+    }
+    .left {
+      background-color: red;
+    }
+    .right {
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <td
+        class="left>Left</td>
+      <td class="
+        right
+      >
+        Right
+      </td>
+    </tr>
+  </table>
+</body>
+```
+
+> 单元格中的文字会自动垂直居中，而且要改变左右两栏的比例，只需要简单的对其中一个单元格设置宽度，另一栏宽度会自适应变化。
+
+###### 3-1-2-使用-display-设置元素以-table-样式显示
+
+```html
+<head>
+  <style>
+    .left {
+      background-color: red;
+    }
+    .right {
+      background-color: blue;
+    }
+    .table {
+      display: table;
+      width: 800px;
+      height: 200px;
+    }
+    .table-cell {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .table-row {
+      display: table-row;
+    }
+  </style>
+</head>
+<body>
+  <div class="table">
+    <div class="table-row">
+      <div class="table-cell left">Left</div>
+      <div class="table-cell right">Right</div>
+    </div>
+  </div>
+</body>
+```
+
+###### 3-1-3-一些布局属性补充
+
+- inline-block
+
+  inline-block 元素对内表现得像 block，可以设置宽高，对外表现得像 inline，不会独占一行而是并排显示，在折行处会整个换行而不会打断内部内容，可以通过设置 vertical-align 来改变垂直对齐方式
+
+- static,relative,absolute,fixed
+
+  static 是浏览器默认的布局方式，称为静态布局，元素位于正常文档流中的位置；relative 会相对自身 static 时的位置进行偏移，并且偏移后仍然占据原来 static 时侯文档中的位置；absolute 则会脱离文档流，不会对其他元素的布局造成影响，而且其偏移是相对于距离自己最近的 relative 或 absolute 的父级元素，或者没有就相对于 body；fixed 则是相对于浏览器可是区域进行定位，脱离文档流。当多个元素层叠在一起是，默认按出现在文档流中的顺序重叠，也可以设置 z-index 手动改变叠加顺序
+
+##### 3-2-flexbox-布局
+
+flexbox 称为弹性盒子，具有可伸缩性，而且本来就是并列的，不用使用 float 或 inline-block 的方式手动设置，同时对宽度提供了多种控制方式，是专为布局而生
+
+> 比如要实现两栏布局，左边定宽，右边宽度自适应，只需要指定父元素 display:flex;然后指定左边定宽元素的宽度，然后右边元素指定 flex:1 就可以实现，简单方便
+>
+> 使用 flexbox 需要注意浏览器兼容性问题
+
+##### 3-3-float-布局
+
+- float 的元素会脱离**文档流**，但是不会脱离**文本流**
+
+  > 元素设置 float 后，不再占据原来文档流中的位置，因此不会对其他元素的布局造成影响。但是会占据其他元素中文字的布局，即所谓“不会脱离文本流”，究其原因是因为 float 本身是为了用于图文混排的，类似 word 文档中插入图片后可以设置图片周围的文字样式，比如环绕图片
+
+- float 的元素自身会形成一个“块”，即 BFC(block format context 块级格式上下文)
+
+  > BFC 带来的特性，一是可以为该元素设置宽高，二是该元素位置会尽量靠上，在尽量靠上的前提下，float:left 会尽量靠左、float:right 会尽量靠右。注意是尽量，可以参考图文混排的情况理解。
+
+- float 的元素对兄弟元素的影响
+
+  > 上面一般贴非 float 元素，左右一般贴 float 元素，不影响其他块级元素的位置，影响其他块级元素内部文本
+
+- float 的元素对父级元素的影响
+
+  > 对于父级元素来说，float 元素相当于“消失”了，因此可能引起父级元素高度塌陷
+  >
+  > 解决高度塌陷的常用方法，一是使父级元素也形成 BFC，比如为其设置 overflow 属性，二是清除浮动：
+
+  ```css
+  .clear-float::after {
+    display: block;
+    content: "";
+    height: 0;
+    visibility: hidden;
+    clear: both;
+  }
+  ```
+
+- 使用 float 实现两栏或三栏经典布局
+
+  > 原理是结合 float 和 margin
+
+  ```html
+  <head>
+    <style>
+      .container {
+        width: 800px;
+        height: 200px;
+      }
+      .left {
+        float: left;
+        width: 200px;
+        height: 100%;
+      }
+      .right {
+        margin-left: 200px;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">Left</div>
+      <div class="right">Right</div>
+    </div>
+  </body>
+  ```
+
+  ```html
+  <head>
+    <style>
+      .container {
+        width: 800px;
+        height: 200px;
+      }
+      .left {
+        width: 200px;
+        height: 100%;
+      }
+      .right {
+        width: 200px;
+        height: 100%;
+      }
+      .middle {
+        margin-left: 200px;
+        margin-right: 200px;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">Left</div>
+      <div class="right">Right</div>
+      <div class="middle">Middle</div>
+    </div>
+  </body>
+  ```
+
+  > 类似上面的两栏或三栏布局，也可以使用 position:absolute 加 margin 来实现，但是 absolute 的元素高度需要显示指定，设置 height:100%不会直接继承父元素高度，因为 absolute 是相对与最近的 relative 或 absolute 父级元素，或者没有就相对于 body。另外 absolute 完全脱离文档流和文本流，缺少一些适应性方面的特性，所以很少使用 absolute 方式
+
+##### 3-4-inline-block-布局
+
+inline-block 可以是块级元素像文本一样并排起来，而且没有清除浮动等问题，但是需要处理间隙
+
+> 出现间隙是因为 inline-block 把块级元素对外展现为 inline，即文本的方式，而文字之间是有间隙的
+>
+> 去除间隙的方法就是在父级元素上设置 font-size:0，然后在自身上面单独指定 font-size
+>
+> 还有一种不常用的方式，即间隙其实来自 html 文件中 inline-block 元素的标签之间有空格、换行之类的空白，所以只要去除标签之间的空白(可以将标签连起来写在一行，或者将空白的地方用 html 注释注释掉)，就可以去除间隙
+
+inline-block 布局对于自适应的场景不太适合，一般应用与定宽度的场合
+
+##### 3-5-响应式布局
+
+响应式布局主要解决不同设备上正常使用的问题，包括很多方面，比如是否有鼠标键盘输入，是否有屏幕阅读器等等，但是一般场合下主要关注屏幕大小问题。
+
+要解决不同屏幕大小适配问题，首先要从源头做起，即确定设计稿时，应该使用隐藏+折叠+自适应空间的方式设计页面，而不是所有元素直接定宽写死
+
+常用手段如下：
+
+> rem:字体大小以 html 元素的字体大小为基准进行计算，针对不同屏幕设定不同的 html 元素的 font-size 即可
+>
+> viewport:视口大小，通过 js 设置 viewport 来让页面缩放到合适的大小
+>
+> media query:媒体查询，可以针对不同的屏幕尺寸写不同的样式
+
+- 适配移动端页面
+
+  - 第一步就是指定 viewport，使页面宽度匹配移动端屏幕的宽度
+
+    ```html
+    <head>
+      <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"
+      />
+    </head>
+    ```
+
+  - 第二步，使用 media query 媒体查询，将不重要的内容在移动端上隐藏或折叠，腾出空间
+
+    ```css
+    @media (max-width: 640px) {
+      .left {
+        display: none;
+      }
+    }
+    ```
+
+    > 使用 media query 要注意，大的匹配范围要写到前面，小的适配范围要写到后面
+    >
+    > 比如先匹配 iphone6 的 375px，再匹配 iphone5 的 320px
+
+> 可以使用固定的 viewport 中 width 的值，让页面在不同尺寸屏幕间进行等比例缩放
+>
+> 比如设置 width=320，就是以 iphone5 的屏幕大小为基准进行布局，然后在不同尺寸屏幕上将所有元素等比例缩放进行适配
+>
+> 也可以使用 rem 的方式进行适配，即针对不同屏幕尺寸设置不同的 html 的 font-size 值，然后页面中所有要适配的元素，单位都改成 rem
+>
+> 使用 rem 很多时候会算出小数，所以不能精确匹配像素，实际使用是要注意预留余地，或者不要在精确度要求高的场合使用
+
+##### 3-6-CSS-布局常见问题
+
+###### 3-6-1-怎样实现两栏或三栏布局
+
+四种常用方式：
+
+1. table 布局
+2. float+margin 布局
+3. inline-block 布局
+4. flexbox 布局
+
+###### 3-6-2-absolute-和-fixed-的区别
+
+1. absolute 是相对于最近的 relative 或 absolute 父级元素，或者没有就相对于 body
+2. fixed 是相对于屏幕，移动端是相对于 viewport(视口)，fixed 在早期移动端的表现不太好，所以如果要兼容比较老的移动端，要慎用 fixed
+
+###### 3-6-3-inline-block-的间隙
+
+1. 产生原因是对外表现为 inline 元素，而 inline 元素有字符间距
+2. 解决办法是消灭字符或消除字符间距：
+   1. 在 html 文件中标签之间不要有空白字符
+   2. 父级元素上设置 font-size:0，在自身上面指定 font-size
+
+###### 3-6-4-清除浮动
+
+1. 为什么要清除浮动？
+
+   因为父元素不会管浮动的元素，因此浮动元素可能会超出父元素而对其他元素造成影响
+
+2. 怎样清除浮动？=> 让盒子负责自己的布局
+   1. 使父元素形成 BFC，比如设置 overflow 属性
+   2. 使用伪元素::after，设置 clear:both
+
+###### 3-6-5-如何适配移动端页面
+
+1. 指定 viewport
+2. 使用 rem/viewport/media query
+3. 在设计上，充分使用隐藏、折叠、自适应空间
+
+#### 四-CSS-效果
+
+##### 4-1-box-shadow
+
+box-shadow: x 轴方向偏移距离 y 轴方向偏移距离 模糊大小 扩展大小 阴影颜色 内阴影;
+
+- 只设置扩展值，偏移和模糊为零，则形成边框；扩展值为负数时，阴影会缩小但是不会消失。设置扩展值，偏移值，模糊设为零，可以达到复制元素的效果
+
+- box-shadow 的形状和盒子本身的形状一样，就是说可以通过 border-radius 来改变 box-shadow 的形状，因此通过设置偏移、扩展、颜色，再加上 border-radius，并且添加多个 box-shadow，可以实现非常复杂的图案
+
+box-shadow 的主要应用场景，一是营造立体感，而是充当没有宽度的边框。
+
+box-shadow 也可以实现一个元素做出复杂图案的效果
+
+##### 4-2-text-shadow
+
+text-shadow 的主要作用，一是营造立体感，而是实现印刷品质感，即类似纸张印刷文字的视觉效果
+
+> 印刷品质感的参考写法：
+
+```css
+.demo {
+  text-shadow: 0 0 1px rgba(128, 128, 128, 0.2);
+}
+```
 
 ---
 
