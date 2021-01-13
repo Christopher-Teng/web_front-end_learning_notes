@@ -6,15 +6,15 @@
 
 ---
 
-### [第一部分-HTML](#第一部分-html)
+### [HTML](#第一篇-html)
 
 ---
 
-### [第二部分-CSS](#第二部分-css)
+### [CSS](#第二篇-css)
 
 ---
 
-### [第三部分-JavaScript](#第三部分-javascript)
+### [JavaScript](#第三篇-javascript)
 
 - [JavaScript-设计模式精讲](#javascript-设计模式精讲)
   - [一-创建型模式](#一-创建型模式)
@@ -49,15 +49,15 @@
 
 ---
 
-## 第一部分-HTML
+## 第一篇-HTML
 
 ---
 
-## 第二部分-CSS
+## 第二篇-CSS
 
 ---
 
-## 第三部分-JavaScript
+## 第三篇-JavaScript
 
 ---
 
