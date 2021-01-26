@@ -51,6 +51,8 @@
   - [四-CSS-效果](#四-css-效果)
     - [4-1-box-shadow](#4-1-box-shadow)
     - [4-2-text-shadow](#4-2-text-shadow)
+    - [4-3-border-radius](#4-5-border-radius)
+    - [4-4-background](#4-4-background)
 
 ---
 
@@ -730,6 +732,25 @@ text-shadow 的主要作用，一是营造立体感，而是实现印刷品质�
   text-shadow: 0 0 1px rgba(128, 128, 128, 0.2);
 }
 ```
+
+##### 4-3-border-radius
+
+border-radius 的常见用法：
+
+- 圆角矩形
+- 圆形
+- 半圆/扇形
+- 一些特殊形状的转角
+
+> border-radius 支持 x 轴方向和 y 轴方向分别指定不同的转角数值
+>
+> 使用格式为：border-radius:xxx xxx xxx xxx / xxx xxx xxx xxx;
+>
+> 或者类似：border-top-left-radius:xxx xxx;的格式
+>
+> 可以将 border-radius 元素的宽高设置为 0，然后设置 border，再结合 border-radius，形成各种奇异的特殊图形
+
+###### 4-4-background
 
 ---
 
