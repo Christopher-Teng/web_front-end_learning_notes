@@ -51,8 +51,16 @@
   - [四-CSS-效果](#四-css-效果)
     - [4-1-box-shadow](#4-1-box-shadow)
     - [4-2-text-shadow](#4-2-text-shadow)
-    - [4-3-border-radius](#4-5-border-radius)
+    - [4-3-border-radius](#4-3-border-radius)
     - [4-4-background](#4-4-background)
+    - [4-5-clip-path](#4-5-clip-path)
+    - [4-6-3D-transform](#4-6-3d-transform)
+    - [4-7-CSS-效果常见问题](#4-7-css-效果常见问题)
+  - [五-CSS-动画](#五-css-动画)
+    - [5-1-transition](#5-1-transition)
+    - [5-2-keyframes](#5-2-keyframes)
+    - [5-3-逐帧动画](#5-3-逐帧动画)
+    - [5-4-CSS-动画的常见问题](#5-4-css-动画的常见问题)
 
 ---
 
@@ -751,6 +759,124 @@ border-radius 的常见用法：
 > 可以将 border-radius 元素的宽高设置为 0，然后设置 border，再结合 border-radius，形成各种奇异的特殊图形
 
 ###### 4-4-background
+
+background 的常见用法：
+
+- 纹理/图案
+- 渐变
+- 雪碧图动画：通过设置 将需要产生动画效果的图标做成雪碧图，在通过设置 background-position 和 transition 实现动画效果
+- 背景图尺寸适应：通过设置 background-size:cover 使图片覆盖容器并且保持图片本身的长宽比；通过设置 background-size:contain 使容器完整包含图片并且保持图片本身的长宽比
+
+##### 4-5-clip-path
+
+clip-path 的常见用法：
+
+- 对容器进行裁减
+- 绘制几何图形
+- 创建自定义路径
+
+> 使用 clip-path 对容器进行裁减时，不会影响容器本身的占为，因此配合 transition 可以实现一些规定范围内的动画效果，这个范围可以简单的由容器的宽高来指定
+>
+> 通过 clip-path:url(svg 元素的 id)配合 svg 可以生成复杂的几何图形
+
+使用 clip-path 要注意浏览器兼容性问题
+
+##### 4-6-3D-transform
+
+3D 变换是传统的 2D 变换的增强版，传统的 2D 变换主要有四种：translate,scale,skew,rotate。
+
+使用 3D 变换，要产生透视效果，需要配合 perspective:xxx 设置透视点距离，以及 transform-style:preserve-3d 使用 3D 透视。
+
+> 扩展知识：transform(变换)和动画是没有必然联系的，transform 是产生变换的效果，要产生动画效果可以配合 transition(过渡)。
+
+使用 3D-transform 要考虑性能问题
+
+##### 4-7-CSS-效果常见问题
+
+1. 如何使用一个 div 画出 xxx 个图案？使用 box-shadow,::before,::after
+2. 如何产生不占空间的边框？使用 box-shadow 或者 outline，并且通过 box-sizing:border-box 可以使容器的宽高包含边框
+3. 如何实现圆形图像或者圆角矩形图像(比如用户头像)？使用 border-radius
+4. 如何实现 ios 图标圆角？使用 clip-path 和 svg 相结合
+5. 如何实现半圆、扇形以及更多圆角图形？使用 border-radius 配合
+   border，通过有无边框、边框粗细以及圆角半径，可以生成各种特殊怪异的图形
+6. 如何实现背景图的居中显示/不重复/改变大小等？使用 background-position,background-repeat,background-size(cover/contain)
+7. 如何平移、放大一个图案？使用 transform:translate,transform:scale
+8. 如何实现 3D 效果？设置 perspective:XXXpx(设置透视点)，transform-style:preserve-3d，以及设置 3D 变换属性
+
+#### 五-CSS-动画
+
+使用动画的常用目的：
+
+- 使用户有愉悦感(流畅华丽的动画使页面显得很高级)
+- 引起用户注意(重要操作是跳出抖动的弹窗)
+- 提示用户(输入错误密码是输入框晃动)
+- 掩饰(数据加载时使用动画来掩盖延迟现象)
+
+动画的类型：
+
+- transition:过渡动画，或者称为补间动画
+- keyframes:关键帧动画
+- 逐帧动画
+
+##### 5-1-transition
+
+transition 常用的属性：
+
+- 位置 - 平移
+
+  例如 left/right/margin/transform
+
+- 方位 - 旋转
+
+  例如：transform
+
+- 大小 - 缩放
+
+  例如：transform
+
+- 透明度：opacity
+
+- 其他
+
+  例如：线性变换 transform
+
+> 通过 transition-timing-function 可以指定过渡动画的缓动函数，从而精细的控制动画的过渡速度
+
+##### 5-2-keyframes
+
+关键帧动画相当于多个过渡动画相结合，和过渡动画有一个很大的区别在于，过渡动画需要元素的状态发生变化，比如:hover，但是关键帧动画不需要。关键帧动画相比过渡动画，定义更灵活。
+
+> 使用 animation-play-state:paused 可以使动画停住
+>
+> 使用 animation-iteration-count:infinite 可以使动画一直循环播放
+>
+> 使用 animation-fill-mode:forwards 可以使动画播放完成后停留在完成时的状态
+>
+> 使用 animation-direction:reverse 可以使动画方向播放
+
+##### 5-3-逐帧动画
+
+逐帧动画属于特殊的关键帧动画，用于无法补间关键帧之间的过渡的情况，逐帧动画使用 steps()缓动函数 指定每个关键帧之间出现多少个还面，一般使用 steps(1)可以很好的实现画面逐帧变化的效果。由于无法补间过渡状态而是全部使用关键帧，因此资源消耗比较大，使用时要考虑性能问题。
+
+##### 5-4-CSS-动画的常见问题
+
+1. CSS 动画的实现方式有几种？
+
+   - transition:补间动画/过渡动画
+   - keyframes(animation):关键帧动画(包含逐帧动画)
+
+2. 过渡动画和关键帧动画的区别？
+
+   - 过渡动画需要状态变化，关键帧动画不需要状态变化
+   - 关键帧动画能实现更精细的控制
+
+3. 如何实现逐帧动画？使用关键帧，配合 steps(1)去掉补间
+4. CSS 动画和 JS 动画谁更好？
+
+   - CSS 动画性能不会太坏
+   - CSS 动画在部分情况下要优于 JS 动画
+   - JS 动画比 CSS 动画控制精细度更高，更具有优化空间
+   - 部分高危属性，比如 box-shadow，不论使用 CSS 动画还是 JS 动画，都很容易造成性能问题
 
 ---
 
