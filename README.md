@@ -61,6 +61,22 @@
     - [5-2-keyframes](#5-2-keyframes)
     - [5-3-逐帧动画](#5-3-逐帧动画)
     - [5-4-CSS-动画的常见问题](#5-4-css-动画的常见问题)
+  - [六-CSS-预处理器](#六-css-预处理器)
+    - [6-1-less](#6-1-less)
+      - [6-1-1-less-嵌套](#6-1-1-less-嵌套)
+      - [6-1-2-less-变量](#6-1-2-less-变量)
+      - [6-1-3-less-mixin](#6-1-3-less-mixin)
+      - [6-1-4-less-extend](#6-1-4-less-extend)
+      - [6-1-5-less-loop](#6-1-5-less-loop)
+      - [6-1-6-less-import](#6-1-6-less-import)
+    - [6-2-sass](#6-2-sass)
+      - [6-2-1-sass-嵌套](#6-2-1-sass-嵌套)
+      - [6-2-2-sass-变量](#6-2-2-sass-变量)
+      - [6-2-3-sass-mixin](#6-2-3-sass-mixin)
+      - [6-2-4-sass-extend](#6-2-4-sass-extend)
+      - [6-2-5-sass-loop](#6-2-5-sass-loop)
+      - [6-2-6-sass-import](#6-2-6-sass-import)
+    - [6-3-CSS-预处理器框架](#6-3-css-预处理器框架)
 
 ---
 
@@ -877,6 +893,440 @@ transition 常用的属性：
    - CSS 动画在部分情况下要优于 JS 动画
    - JS 动画比 CSS 动画控制精细度更高，更具有优化空间
    - 部分高危属性，比如 box-shadow，不论使用 CSS 动画还是 JS 动画，都很容易造成性能问题
+
+#### 六-CSS-预处理器
+
+CSS 预处理器提供的核心功能主要有：
+
+- 嵌套：反映层级和约束
+- 变量和计算：减少重复代码
+- Extend 和 Mixin：代码片段
+- 循环：适用于复杂有规律的样式
+- import：CSS 文件模块化
+
+##### 6-1-less
+
+###### 6-1-1-less-嵌套
+
+less 文件：
+
+```less
+.wrapper {
+  .container {
+    &:hover {
+      background-color: red;
+    }
+  }
+}
+```
+
+编译后的 CSS 文件：
+
+```css
+.wrapper .container:hover {
+  background-color: red;
+}
+```
+
+###### 6-1-2-less-变量
+
+变量定义语法：
+
+> @变量名:变量值
+
+变量支持计算，例如：
+
+less 文件：
+
+```less
+@fontSize: 16px;
+@textColor: red;
+
+.content {
+  font-size: @fontSize+2px;
+  color: lighten(@textColor, 20%);
+}
+```
+
+编译后的 CSS 文件：
+
+```css
+.content {
+  font-size: 18px;
+  color: #ff6666;
+}
+```
+
+###### 6-1-3-less-mixin
+
+less 中定义 mixin 的语法：
+
+> .mixin 的名字(可选参数){
+> 规则
+> }
+>
+> 或者
+>
+> .mixin 的名字{
+> 规则
+> }
+
+第一种定义方式，编译后的 CSS
+文件中不会出现单独的 mixin 样式；第二种定义方式，编译后的 CSS 文件中会出现单独的 mixin 样式，就如同正常定义一个类一样
+
+less 文件：
+
+```less
+@fontSize: 16px;
+@textColor: red;
+
+.content(@ftSize,@txtColor) {
+  font-size: @ftSize;
+  color: @txtColor;
+}
+
+.box1 {
+  .content(@fontSize,@textColor);
+  background-color: green;
+}
+
+.box2 {
+  .content(@fontSize,@textColor);
+  background-color: blue;
+}
+```
+
+编译后的 CSS 文件：
+
+```css
+.box1 {
+  font-size: 16px;
+  color: red;
+  background-color: green;
+}
+
+.box2 {
+  font-size: 16px;
+  color: red;
+  background-color: blue;
+}
+```
+
+less 文件：
+
+```less
+@fontSize: 16px;
+@textColor: red;
+
+.content {
+  font-size: @fontSize;
+  color: @textColor;
+}
+
+.box1 {
+  .content();
+  background-color: green;
+}
+
+.box2 {
+  .content();
+  background-color: blue;
+}
+```
+
+编译后的 CSS 文件：
+
+```css
+.content {
+  font-size: 16px;
+  color: red;
+}
+
+.box1 {
+  font-size: 16px;
+  color: red;
+  background-color: green;
+}
+
+.box2 {
+  font-size: 16px;
+  color: red;
+  background-color: blue;
+}
+```
+
+###### 6-1-4-less-extend
+
+less 中定义 extend 的语法和定义一个普通样式类一样：
+
+> .extend 的名字{ 规则 }
+
+less 中使用 extend 的语法：
+
+> .box:extend(.extend 的名字)
+
+extend 的意义在于将选择器提取出来，从而提取出公共代码；而 mixin 会直接复制公共代码到选择器内
+
+less 文件：
+
+```less
+@fontSize: 16px;
+@textColor: red;
+
+.content {
+  font-size: @fontSize;
+  color: textColor;
+}
+
+.wrapper {
+  .container {
+    .box1:extend(.content) {
+      background-color: green;
+    }
+    .box2:extend(.content) {
+      background-color: blue;
+    }
+  }
+}
+```
+
+编译后的 CSS 文件：
+
+```css
+.content,
+.wrapper .container .box1,
+.wrapper .container .box2 {
+  font-size: 16px;
+  color: red;
+}
+
+.wrapper .container .box1 {
+  background-color: green;
+}
+
+.wrapper .container .box2 {
+  background-color: blue;
+}
+```
+
+###### 6-1-5-less-loop
+
+less 中没有直接支持循环，但是由于 mixin 可以调用自身，因此可以借助递归的方式实现循环
+
+下面是利用循环来生成一个网格系统
+
+less 文件：
+
+```less
+.gen-col(@n) when (@n>0) {
+  .gen-col(@n-1);
+  .col-@{n}{
+    width: 1200px/12*@n;
+  }
+}
+
+.gen-col(12)
+```
+
+编译后的 CSS 文件：
+
+```css
+.col-1 {
+  width: 100px;
+}
+
+.col-2 {
+  width: 200px;
+}
+
+.col-3 {
+  width: 300px;
+}
+
+// ......
+
+.col-12 {
+  width: 1200px;
+}
+```
+
+###### 6-1-6-less-import
+
+less 中 import 的语法：
+
+> @import "文件路径"
+
+less 的 import 会将引入的各个样式文件合并为一个文件，并且各个文件中定义的变量等是可以跨文件使用的，只要引入顺序正确
+
+##### 6-2-sass
+
+###### 6-2-1-sass-嵌套
+
+sass 文件：
+
+```scss
+.wrapper {
+  .container {
+    &:hover {
+      background-color: red;
+    }
+  }
+}
+```
+
+编译后的 CSS 文件：
+
+```css
+.wrapper .container:hover {
+  background-color: red;
+}
+```
+
+###### 6-2-2-sass-变量
+
+变量定义语法：
+
+> $变量名:变量值
+
+变量支持计算，例如：
+
+sass 文件：
+
+```scss
+$fontSize: 16px;
+$textColor: red;
+
+.content {
+  font-size: $fontSize + 2px;
+  color: lighten($textColor, 20%);
+}
+```
+
+编译后的 CSS 文件：
+
+```css
+.content {
+  font-size: 18px;
+  color: #ff6666;
+}
+```
+
+###### 6-2-3-sass-mixin
+
+sass 中定义 mixin 的语法：
+
+> @mixin mixin 的名字(可选参数){
+> 规则
+> }
+
+sass 中调用 mixin 的语法：
+
+> @include mixin 的名字(可选参数)
+
+编译后的 CSS 文件中不会出现单独的 mixin 样式
+
+###### 6-2-4-sass-extend
+
+sass 中定义 extend 的语法和定义一个普通样式类一样
+
+> .extend 的名字{ 规则 }
+
+sass 中使用 extend 的语法：
+
+> @extend extend 的名字
+
+###### 6-2-5-sass-loop
+
+sass 中支持直接使用循环，仍然以生成一个网格系统为例：
+
+sass 文件：
+
+```scss
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    width: 1200px/12 * $i;
+  }
+}
+```
+
+编译后的 CSS 文件：
+
+```css
+.col-1 {
+  width: 100px;
+}
+
+.col-2 {
+  width: 200px;
+}
+
+// ......
+
+.col-12 {
+  width: 1200px;
+}
+```
+
+当然，sass 中也可以借助使用 mixin 递归调用自身来实现循环
+
+sass 文件：
+
+```scss
+@mixin gen-col($n) {
+  @if $n>0 {
+    @include gen-col($n-1);
+    .col-#{$n} {
+      width: 1200px/12 * $n;
+    }
+  }
+}
+
+@include gen-col(12);
+```
+
+编译后的 CSS 文件：
+
+```css
+.col-1 {
+  width: 100px;
+}
+
+.col-2 {
+  width: 200px;
+}
+
+// ......
+
+.col-12 {
+  width: 1200px;
+}
+```
+
+###### 6-2-6-sass-import
+
+sass 中的 import 和 less 中的使用方法一样，可以参照上文 less 中的 import 部分[6-1-6-less-import](#6-1-6-less-import)
+
+##### 6-3-CSS-预处理器框架
+
+常用框架：
+
+- Sass - Compass
+- Less - Lesshat / EST
+
+预处理框架的意义在于提供了现成的 mixin 以及类似 JS 的各种类库封装了常用功能
+
+##### 6-4-CSS-预处理器总结
+
+1. CSS 预处理器的主要作用：更好的组织 CSS 代码、提高代码复用率、提升可维护性
+2. CSS 预处理器的主要能力：
+   - 嵌套：反映层级和约束
+   - 变量和计算：减少重复代码
+   - Extend 和 Mixin：代码片段
+   - 循环：适用于复杂有规律的样式
+   - import：CSS 文件模块化
+3. CSS 预处理器的优缺点：
+   - 优点：提高代码复用率和可维护性
+   - 缺点：需要引入编译过程，需要学习成本
 
 ---
 
