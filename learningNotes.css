@@ -1,0 +1,12 @@
+/* 清除浮动 */
+.clear-float::after{
+  display:block;
+  content::'';
+  height:0;
+  visibility:hidden;
+  clear:both;
+}
+/* 营造文字印刷品质感 */
+.text-printed{
+  text-shadow: rgba(128, 128, 128, .2);
+}
