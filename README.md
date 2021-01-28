@@ -78,6 +78,8 @@
       - [6-2-6-sass-import](#6-2-6-sass-import)
     - [6-3-CSS-预处理器框架](#6-3-css-预处理器框架)
     - [6-4-CSS-预处理器总结](#6-4-css-预处理器总结)
+  - [七-CSS-框架-Bootstrap](#七-css-框架-bootstrap)
+  - [八-CSS-工程化方案](#八-css-工程化方案)
 
 ---
 
@@ -1328,6 +1330,37 @@ sass 中的 import 和 less 中的使用方法一样，可以参照上文 less �
 3. CSS 预处理器的优缺点：
    - 优点：提高代码复用率和可维护性
    - 缺点：需要引入编译过程，需要学习成本
+
+#### 七-CSS-框架-Bootstrap
+
+Bootstrap 的主要组成：基础样式、常用组件、JS 插件
+
+Bootstrap 的优点是使 CSS 代码结构合理，而且提供了很多现成的样式以供直接使用；缺点一是定制较为繁琐，二是体积比较大
+
+Bootstrap 实现响应式布局的原理是通过 media query 设置不同分辨率的 class，然后在使用时为不同分辨率选择不同的网格系统 class
+
+Bootstrap 定制化样式的方式主要有三种：使用 CSS 同名类进行样式覆盖、修改源码重新构建、引用 scss 源文件然后修改其中的变量
+
+#### 八-CSS-工程化方案
+
+CSS 工程化主要关注点：组织、优化、构建、维护
+
+PostCSS 对 css 文件进行解析和转换，在此过程中实现各种功能
+
+PostCSS 本身只具备解析 css 文件的能力，但是可以通过各种插件来实现种种特性，比如：
+
+- import：模块合并
+- autoprefixier：自动加前缀
+- cssnano：压缩代码
+- cssnext：使用 css 新特性
+- precss：变量、mixin、循环等
+
+PostCSS 支持和各种常用构建工具结合使用，例如：
+
+- Webpack:postcss-loader
+- Gulp:gulp-postcss
+- Grunt:grunt-postcss
+- Rollup:rollup-postcss
 
 ---
 
