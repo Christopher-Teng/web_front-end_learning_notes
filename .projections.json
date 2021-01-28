@@ -1,0 +1,17 @@
+{
+  "README.md": {
+    "type": "readme"
+  },
+  "notes/html/*.md": {
+    "type": "html",
+    "alternate": "./README.md"
+  },
+  "notes/css/*.md": {
+    "type": "css",
+    "alternate": "./README.md"
+  },
+  "notes/js/*.md": {
+    "type": "js",
+    "alternate": "./README.md"
+  }
+}
