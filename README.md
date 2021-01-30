@@ -6,17 +6,17 @@
 
 ---
 
-### [HTML](#第一篇-html)
+### HTML
 
 ---
 
-### [CSS](#第二篇-css)
+### CSS
 
 - [0201-全面系统讲解 CSS，从容面对日常使用，顺利搞定面试问答](./notes/css/0201.md)
 
 ---
 
-### [JavaScript](#第三篇-javascript)
+### JavaScript
 
 - [0301-JavaScript 设计模式精讲](./notes/js/0301.md)
 
